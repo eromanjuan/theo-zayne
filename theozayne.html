@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo Zayne's 1st Birthday Invitation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Impact&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="icon" href="theo/icon.webp">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bbOrange: '#FF6B00',
+                        bbBlack: '#0D0D0D',
+                        bbGlass: 'rgba(20, 20, 20, 0.75)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        impact: ['Impact', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling and custom scrollbar */
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0D0D0D; }
+        ::-webkit-scrollbar-thumb { background: #FF6B00; border-radius: 4px; }
+        
+        /* Glassmorphism styling */
+        .glass-card {
+            background: rgba(18, 18, 18, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+        }
+        
+        /* Hero Banner Background */
+        .hero-banner {
+            background: linear-gradient(rgba(13, 13, 13, 0.5), rgba(13, 13, 13, 0.95)), url('theo/banner.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-bbBlack text-white font-sans antialiased selection:bg-bbOrange selection:text-black">
+
+    <!-- Hero Section -->
+    <header class="hero-banner min-h-screen flex flex-col items-center justify-center relative px-4 text-center">
+        <div class="absolute top-4 right-4 z-50">
+            <span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold bg-bbOrange text-black animate-pulse">
+                <i class="fa-solid fa-basketball"></i> YOU'RE INVITED
+            </span>
+        </div>
+
+        <div class="max-w-3xl space-y-4 animate-fade-in">
+            <p class="text-xl md:text-2xl font-semibold tracking-widest text-bbOrange uppercase">Rookie of the Year</p>
+            <h1 class="text-6xl md:text-8xl font-impact tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-[0_5px_5px_rgba(255,107,0,0.4)]">
+                Theo Zayne
+            </h1>
+            <p class="text-2xl md:text-3xl font-light tracking-wide">Is Turning <span class="text-bbOrange font-extrabold">1</span>!</p>
+            
+            <div class="w-24 h-1 bg-bbOrange mx-auto my-6 rounded-full"></div>
+            
+            <p class="text-gray-300 max-w-lg mx-auto text-sm md:text-base">
+                Join us for a slam dunk of a celebration as our little MVP hits his first major milestone!
+            </p>
+        </div>
+
+        <!-- Call to Actions -->
+        <div class="mt-12 flex flex-col sm:flex-row gap-4 w-full max-w-md px-4">
+            <button onclick="openMapModal()" class="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border-2 border-bbOrange text-bbOrange hover:bg-bbOrange hover:text-black font-semibold py-3 px-6 rounded-xl transition duration-300 shadow-lg shadow-bbOrange/10">
+                <i class="fa-solid fa-map-location-dot"></i> View Venue Map
+            </button>
+            <a href="theo/theofirst.jpg" download="theofirst.jpg" class="flex-1 inline-flex items-center justify-center gap-2 bg-bbOrange text-black font-semibold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-bbOrange/20">
+                <i class="fa-solid fa-download"></i> Download Invitation
+            </a>
+        </div>
+
+        <div class="absolute bottom-8 animate-bounce">
+            <a href="#details" class="text-gray-400 hover:text-bbOrange transition">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Event Details Section -->
+    <section id="details" class="py-24 px-4 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Date & Time Card -->
+            <div class="glass-card p-8 rounded-2xl text-center group hover:border-bbOrange transition duration-300">
+                <div class="w-14 h-14 bg-bbOrange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-bbOrange/20 transition">
+                    <i class="fa-solid fa-calendar-day text-bbOrange text-2xl"></i>
+                </div>
+                <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-widest mb-1">When</h3>
+                <p class="text-xl font-bold">June 28, 2026</p>
+                <p class="text-bbOrange text-sm font-semibold mt-1">Sunday @ 2:00 PM</p>
+            </div>
+
+            <!-- Venue Card -->
+            <div class="glass-card p-8 rounded-2xl text-center group hover:border-bbOrange transition duration-300">
+                <div class="w-14 h-14 bg-bbOrange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-bbOrange/20 transition">
+                    <i class="fa-solid fa-location-dot text-bbOrange text-2xl"></i>
+                </div>
+                <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-widest mb-1">Where</h3>
+                <p class="text-xl font-bold">Salcedo Resort</p>
+                <p class="text-gray-400 text-xs mt-1">Purok Bagong Silang, Brgy. Mangandingay</p>
+            </div>
+
+            <!-- Theme Card -->
+            <div class="glass-card p-8 rounded-2xl text-center group hover:border-bbOrange transition duration-300">
+                <div class="w-14 h-14 bg-bbOrange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-bbOrange/20 transition">
+                    <i class="fa-solid fa-shirt text-bbOrange text-2xl"></i>
+                </div>
+                <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-widest mb-1">Dress Code</h3>
+                <p class="text-xl font-bold">Basketball Theme</p>
+                <div class="flex justify-center gap-2 mt-2">
+                    <span class="w-4 h-4 rounded-full bg-bbOrange border border-white/20" title="Orange"></span>
+                    <span class="w-4 h-4 rounded-full bg-black border border-white/20" title="Black"></span>
+                    <span class="w-4 h-4 rounded-full bg-white" title="White"></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="py-16 bg-gradient-to-b from-bbBlack to-neutral-900 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-impact tracking-wide uppercase">Theo's Highlights</h2>
+                <p class="text-gray-400 text-sm mt-2">A look at our favorite rookie's draft year</p>
+            </div>
+
+            <!-- Responsive Dynamic Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Replace 'theo/pic1.jpg', 'theo/pic2.jpg', etc., with your actual image paths -->
+                <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="theo/pic1.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 onerror='this.style.display=\"none\"'">
+                </div>
+                <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="theo/pic2.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="theo/pic3.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="theo/pic4.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-xs text-gray-600 border-t border-white/5">
+        <p>© 2026 Theo Zayne's 1st Birthday | All Rights Reserved</p>
+    </footer>
+
+    <!-- Interactive Interactive Map Modal -->
+    <div id="mapModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="glass-card w-full max-w-2xl rounded-2xl overflow-hidden relative">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+                <h4 class="font-bold text-bbOrange flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot"></i> Salcedo Resort Venue Location
+                </h4>
+                <button onclick="closeMapModal()" class="text-gray-400 hover:text-white transition text-xl">&times;</button>
+            </div>
+            <div class="p-2 bg-neutral-900 aspect-video">
+                <!-- Google Maps Embed placeholder targeting general area context -->
+                <iframe 
+                    class="w-full h-full rounded-xl"
+                    src="https://maps.google.com/maps?q=Salcedo%20Resort,%20Mangandingay&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="p-4 bg-black/40 text-xs text-gray-400 text-center">
+                Purok Bagong Silang, Brgy. Mangandingay
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal for Gallery Images -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/95 p-4" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white text-3xl hover:text-bbOrange transition">&times;</button>
+        <img id="lightboxImg" src="" alt="Enlarged view" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl">
+    </div>
+
+    <!-- Interactive Logic -->
+    <script>
+        // Map Modal Control
+        function openMapModal() {
+            document.getElementById('mapModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMapModal() {
+            document.getElementById('mapModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Image Lightbox Control
+        function openLightbox(src) {
+            if(!src || src.includes('undefined')) return;
+            const lightbox = document.getElementById('lightbox');
+            document.getElementById('lightboxImg').src = src;
+            lightbox.classList.remove('hidden');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Close modals on Esc keypress
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMapModal();
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

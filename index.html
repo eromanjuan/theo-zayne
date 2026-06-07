@@ -74,6 +74,28 @@
             <p class="text-gray-300 max-w-lg mx-auto text-sm md:text-base">
                 Join us for a slam dunk of a celebration as our little MVP hits his first major milestone!
             </p>
+
+            <!-- Countdown Timer -->
+            <div class="pt-6 max-w-xl mx-auto">
+                <div id="countdown" class="grid grid-cols-4 gap-2 md:gap-4 max-w-md mx-auto bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/5">
+                    <div class="flex flex-col p-2 bg-neutral-900/80 rounded-xl border border-white/5">
+                        <span id="days" class="text-2xl md:text-4xl font-impact text-bbOrange">00</span>
+                        <span class="text-[10px] md:text-xs uppercase tracking-wider text-gray-400 font-semibold mt-1">Days</span>
+                    </div>
+                    <div class="flex flex-col p-2 bg-neutral-900/80 rounded-xl border border-white/5">
+                        <span id="hours" class="text-2xl md:text-4xl font-impact text-white">00</span>
+                        <span class="text-[10px] md:text-xs uppercase tracking-wider text-gray-400 font-semibold mt-1">Hours</span>
+                    </div>
+                    <div class="flex flex-col p-2 bg-neutral-900/80 rounded-xl border border-white/5">
+                        <span id="minutes" class="text-2xl md:text-4xl font-impact text-white">00</span>
+                        <span class="text-[10px] md:text-xs uppercase tracking-wider text-gray-400 font-semibold mt-1">Mins</span>
+                    </div>
+                    <div class="flex flex-col p-2 bg-neutral-900/80 rounded-xl border border-white/5">
+                        <span id="seconds" class="text-2xl md:text-4xl font-impact text-bbOrange">00</span>
+                        <span class="text-[10px] md:text-xs uppercase tracking-wider text-gray-400 font-semibold mt-1">Secs</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Call to Actions -->
@@ -144,9 +166,8 @@
 
             <!-- Responsive Dynamic Grid -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Replace 'theo/pic1.jpg', 'theo/pic2.jpg', etc., with your actual image paths -->
                 <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="theo/pic1.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 onerror='this.style.display=\"none\"'">
+                    <img src="theo/pic1.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                 </div>
                 <div class="overflow-hidden rounded-xl aspect-square bg-neutral-800 border border-white/5 hover:border-bbOrange/50 transition duration-300 group cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
                     <img src="theo/pic2.jpg" alt="Theo Zayne" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
@@ -176,7 +197,6 @@
                 <button onclick="closeMapModal()" class="text-gray-400 hover:text-white transition text-xl">&times;</button>
             </div>
             <div class="p-2 bg-neutral-900 aspect-video">
-                <!-- Google Maps Embed placeholder targeting general area context -->
                 <iframe 
                     class="w-full h-full rounded-xl"
                     src="https://maps.google.com/maps?q=Salcedo%20Resort,%20Mangandingay&t=&z=14&ie=UTF8&iwloc=&output=embed" 
@@ -229,6 +249,52 @@
                 closeLightbox();
             }
         });
+
+        // Countdown Timer Logic
+        function initCountdown() {
+            // Target date: June 28, 2026 at 2:00 PM (14:00)
+            const targetDate = new Date('June 28, 2026 14:00:00').getTime();
+
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            const countdownContainer = document.getElementById('countdown');
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+                    clearInterval(timerInterval);
+                    countdownContainer.innerHTML = `
+                        <div class="col-span-4 py-2 text-center text-lg md:text-xl font-impact tracking-wider uppercase text-bbOrange animate-pulse">
+                            <i class="fa-solid fa-basketball-hoop"></i> Game Time! Let's Celebrate!
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Time calculations
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                // Format numbers to always show two digits
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
+
+            // Run instantly on load and set intervals
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Run countdown setup
+        initCountdown();
     </script>
 </body>
 </html>

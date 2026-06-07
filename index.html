@@ -50,9 +50,38 @@
             background-size: cover;
             background-position: center;
         }
+
+        /* Audio Wave Animation */
+        .wave-bar {
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            10% { height: 4px; }
+            100% { height: 16px; }
+        }
     </style>
 </head>
 <body class="bg-bbBlack text-white font-sans antialiased selection:bg-bbOrange selection:text-black">
+
+    <!-- Background Audio Element with Autoplay Enabled -->
+    <audio id="bgMusic" src="theo/music.mp3" loop autoplay></audio>
+
+    <!-- Floating Audio Control Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleMusic()" id="musicBtn" class="glass-card p-4 rounded-full flex items-center justify-center gap-2 hover:border-bbOrange transition-all duration-300 shadow-xl group">
+            <!-- Animated Wave Bars (Visible when playing) -->
+            <div id="audioWave" class="hidden items-end gap-0.5 h-4 w-4 overflow-hidden mb-0.5">
+                <span class="wave-bar w-1 bg-bbOrange rounded-full"></span>
+                <span class="wave-bar w-1 bg-bbOrange rounded-full"></span>
+                <span class="wave-bar w-1 bg-bbOrange rounded-full"></span>
+            </div>
+            <!-- Standard Icon Control -->
+            <i id="musicIcon" class="fa-solid fa-volume-xmark text-lg text-gray-400 group-hover:text-bbOrange transition"></i>
+            <span id="musicText" class="text-xs uppercase font-semibold tracking-wider text-gray-400 group-hover:text-white hidden sm:inline pr-1">Play Music</span>
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <header class="hero-banner min-h-screen flex flex-col items-center justify-center relative px-4 text-center">
@@ -100,7 +129,7 @@
 
         <!-- Call to Actions -->
         <div class="mt-12 flex flex-col sm:flex-row gap-4 w-full max-w-md px-4">
-
+          
             <a href="theo/theofirst.jpg" download="theofirst.jpg" class="flex-1 inline-flex items-center justify-center gap-2 bg-bbOrange text-black font-semibold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-bbOrange/20">
                 <i class="fa-solid fa-download"></i> Download Invitation
             </a>
@@ -185,7 +214,31 @@
         <p>© 2026 Theo Zayne's 1st Birthday | All Rights Reserved</p>
     </footer>
 
-    
+    <!-- Interactive Map Modal -->
+    <div id="mapModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="glass-card w-full max-w-2xl rounded-2xl overflow-hidden relative">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+                <h4 class="font-bold text-bbOrange flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot"></i> Salcedo Resort Venue Location
+                </h4>
+                <button onclick="closeMapModal()" class="text-gray-400 hover:text-white transition text-xl">&times;</button>
+            </div>
+            <div class="p-2 bg-neutral-900 aspect-video">
+                <iframe 
+                    class="w-full h-full rounded-xl"
+                    src="https://maps.google.com/maps?q=Salcedo+Resort,+Mangandingay&ftid=0x33b1897b6cebe8c9:0x89bd0738242dfc5c&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="p-4 bg-black/40 text-xs text-gray-400 text-center">
+                Purok Bagong Silang, Brgy. Mangandingay
+            </div>
+        </div>
+    </div>
 
     <!-- Lightbox Modal for Gallery Images -->
     <div id="lightbox" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/95 p-4" onclick="closeLightbox()">
@@ -226,7 +279,6 @@
 
         // Countdown Timer Logic
         function initCountdown() {
-            // Target date: June 28, 2026 at 2:00 PM (14:00)
             const targetDate = new Date('June 28, 2026 14:00:00').getTime();
 
             const daysEl = document.getElementById('days');
@@ -249,23 +301,81 @@
                     return;
                 }
 
-                // Time calculations
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-                // Format numbers to always show two digits
                 daysEl.textContent = String(days).padStart(2, '0');
                 hoursEl.textContent = String(hours).padStart(2, '0');
                 minutesEl.textContent = String(minutes).padStart(2, '0');
                 secondsEl.textContent = String(seconds).padStart(2, '0');
             }
 
-            // Run instantly on load and set intervals
             updateTimer();
             const timerInterval = setInterval(updateTimer, 1000);
         }
+
+        // Background Music Control Logic
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        const audioWave = document.getElementById('audioWave');
+        let isAudioPlaying = false;
+
+        function toggleMusic() {
+            if (music.paused) {
+                playMusicTrack();
+            } else {
+                pauseMusicTrack();
+            }
+        }
+
+        function playMusicTrack() {
+            music.play().then(() => {
+                isAudioPlaying = true;
+                musicIcon.className = "fa-solid fa-volume-high text-lg text-bbOrange";
+                musicText.textContent = "Mute";
+                musicText.classList.add('text-bbOrange');
+                audioWave.classList.remove('hidden');
+                audioWave.classList.add('flex');
+            }).catch(err => {
+                console.log("Autoplay caught/prevented by browser security rules. Waiting for interaction.");
+            });
+        }
+
+        function pauseMusicTrack() {
+            music.pause();
+            isAudioPlaying = false;
+            musicIcon.className = "fa-solid fa-volume-xmark text-lg text-gray-400";
+            musicText.textContent = "Play Music";
+            musicText.classList.remove('text-bbOrange');
+            audioWave.classList.add('hidden');
+            audioWave.classList.remove('flex');
+        }
+
+        // 1. Try to play right away when DOM content renders
+        document.addEventListener('DOMContentLoaded', () => {
+            playMusicTrack();
+        });
+
+        // 2. Fallback: Try playing directly via window load state
+        window.addEventListener('load', () => {
+            if(!isAudioPlaying) {
+                playMusicTrack();
+            }
+        });
+
+        // 3. Ultimate Fallback: Triggers music instantly on any structural user interaction 
+        const interactionEvents = ['click', 'touchstart', 'pointerdown', 'scroll'];
+        function handleFirstInteraction() {
+            if (!isAudioPlaying) {
+                playMusicTrack();
+            }
+            // Remove handlers once the first interaction passes to clean up performance
+            interactionEvents.forEach(event => window.removeEventListener(event, handleFirstInteraction));
+        }
+        interactionEvents.forEach(event => window.addEventListener(event, handleFirstInteraction, { passive: true }));
 
         // Run countdown setup
         initCountdown();
